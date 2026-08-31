@@ -1,5 +1,4 @@
 # Sports DB
-# SportsDB
 
 SportsDB is a web-based sports management system for organizing student-athletes, teams, staff, facilities, sessions, forms, and scheduling information in one centralized application.
 
