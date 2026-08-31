@@ -1,0 +1,68 @@
+<%- include('../partials/header', { title: 'Edit Sports Area' }) %>
+
+<div class="container mt-5">
+  <a href="/sportsArea" class="btn btn-secondary mb-3">← Back to List</a>
+  <h2>Edit Sports Area</h2>
+
+  <form action="/sportsArea/edit/<%= encodeURIComponent(area.AreaName) %>" method="POST">
+    <div class="mb-3">
+      <label class="form-label">Area Name:</label>
+      <input type="text" name="AreaName" class="form-control" value="<%= area.AreaName %>" readonly>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Type:</label>
+      <input type="text" name="Type" class="form-control" value="<%= area.Type %>" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Location:</label>
+      <input type="text" name="Location" class="form-control" value="<%= area.Location %>" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Capacity:</label>
+      <input type="number" name="Capacity" class="form-control" value="<%= area.Capacity %>" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Open Time:</label>
+      <select name="OpenTime" class="form-select" required>
+        <% timeSlots.forEach(slot => { %>
+          <option value="<%= slot.value %>" <%= area.OpenTime === slot.value ? 'selected' : '' %>><%= slot.label %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Close Time:</label>
+      <select name="CloseTime" class="form-select" required>
+        <% timeSlots.forEach(slot => { %>
+          <option value="<%= slot.value %>" <%= area.CloseTime === slot.value ? 'selected' : '' %>><%= slot.label %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Rec Start Time:</label>
+      <select name="RecStartTime" class="form-select" required>
+        <% timeSlots.forEach(slot => { %>
+          <option value="<%= slot.value %>" <%= area.RecStartTime === slot.value ? 'selected' : '' %>><%= slot.label %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Rec End Time:</label>
+      <select name="RecEndTime" class="form-select" required>
+        <% timeSlots.forEach(slot => { %>
+          <option value="<%= slot.value %>" <%= area.RecEndTime === slot.value ? 'selected' : '' %>><%= slot.label %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <button class="btn btn-primary">Update Sports Area</button>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

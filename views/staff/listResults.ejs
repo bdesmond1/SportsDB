@@ -1,0 +1,50 @@
+<%- include('../partials/header', { title }) %>
+
+<div class="container mt-5">
+  <h1 class="mb-4"><%= title %></h1>
+
+  <% if (results.length === 0) { %>
+    <p>No results found.</p>
+  <% } else { %>
+    <table class="table table-striped">
+      <thead class="table-dark">
+        <tr>
+          <% Object.keys(results[0]).forEach(function(key) { %>
+            <th>
+              <%= key
+                    .replace(/_/g, ' ')
+                    .replace(/([a-z])([A-Z])/g, '$1 $2')
+                    .replace(/^./, function(str){ return str.toUpperCase(); }) %>
+            </th>
+          <% }); %>
+        </tr>
+      </thead>
+      <tbody>
+        <% results.forEach(function(row) { %>
+          <tr>
+            <% Object.keys(row).forEach(function(key) { %>
+              <td>
+                <% if (key.toLowerCase() === 'date' && row[key]) { %>
+                  <%= new Date(row[key]).toLocaleDateString('en-US', { 
+                        weekday: 'short', 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric' 
+                      }) %>
+                <% } else { %>
+                  <%= row[key] %>
+                <% } %>
+              </td>
+            <% }); %>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } %>
+
+  <div class="mt-3">
+    <a href="/staff/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,50 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <a href="/sessions/dashboard" class="btn btn-secondary mb-3">← Back to Dashboard</a>
+  <h2><%= title %></h2>
+    <div class="mb-3">
+  <a href="/sessions/add" class="btn btn-success">Add Session</a>
+</div>
+
+<% if (!sessions || sessions.length===0) { %>
+  <div class="alert alert-warning">No sessions found.</div>
+<% } else { %>
+  <div class="table-responsive mb-4">
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Type</th>
+          <th>Team</th>
+          <th>Area</th>
+          <th>Participants</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% sessions.forEach(s => { %>
+          <tr>
+            <td><%= s.SessionID %></td>
+            <td><%= new Date(s.Date).toLocaleDateString('en-US') %></td>
+            <td><%= formatTime12h(s.StartTime) %></td>
+            <td><%= formatTime12h(s.EndTime) %></td>
+            <td><%= s.Type %></td>
+            <td><%= s.SessionMode==='team'?s.TeamName:'Rec' %></td>
+            <td><%= s.AreaName || '' %></td>
+            <td><%= s.Participants || '' %></td>
+            <td>
+              <a href="/sessions/edit/<%= s.SessionID %>" class="btn btn-sm btn-warning">Edit</a>
+              <a href="/sessions/delete/<%= s.SessionID %>" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</a>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

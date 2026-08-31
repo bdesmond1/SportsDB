@@ -1,0 +1,154 @@
+<%- include('../partials/header', { title }) %>
+
+<div class="container mt-5">
+  <a href="/sessions" class="btn btn-secondary mb-3">← Back</a>
+  <h2><%= title %></h2>
+
+  <% if (message) { %>
+    <div class="alert alert-success"><%= message %></div>
+  <% } %>
+
+  <form action="/sessions/edit/<%= session.SessionID %>" method="POST" class="card p-4 shadow-sm">
+    <!-- Session Mode -->
+    <div class="mb-3">
+      <label class="form-label">Session Mode</label><br>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="SessionMode" id="modeTeam" value="team" <%= session.SessionMode==='team'?'checked':'' %> required>
+        <label class="form-check-label" for="modeTeam">Team</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="SessionMode" id="modeRec" value="rec" <%= session.SessionMode==='rec'?'checked':'' %>>
+        <label class="form-check-label" for="modeRec">Recreational</label>
+      </div>
+    </div>
+
+    <!-- Team Dropdown -->
+    <div class="mb-3" id="teamDiv" style="display:none;">
+      <label class="form-label">Team</label>
+      <select name="TeamName" class="form-select">
+        <% teams.forEach(t => { %>
+          <option value="<%= t.TeamName %>" <%= t.TeamName===session.TeamName?'selected':'' %>><%= t.TeamName %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <!-- Rec Users as Checkboxes -->
+    <div class="mb-3" id="recDiv" style="display:none;">
+      <label class="form-label">Rec Users</label>
+      <div class="d-flex flex-wrap">
+        <% recUsers.forEach(u => { %>
+          <div class="form-check me-3">
+            <input class="form-check-input" type="checkbox" name="RecUsers" value="<%= u.UserID %>" id="recUser<%= u.UserID %>" <%= selectedParticipants.includes(u.UserID)?'checked':'' %>>
+            <label class="form-check-label" for="recUser<%= u.UserID %>"><%= u.UserID %></label>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <!-- Area -->
+    <div class="mb-3">
+      <label class="form-label">Area</label>
+      <select name="AreaName" id="areaSelect" class="form-select" required>
+        <% areas.forEach(a => { %>
+          <option value="<%= a.AreaName %>" 
+                  data-opentime="<%= a.OpenTime ? a.OpenTime.toString().slice(0,5) : '00:00' %>" 
+                  data-closetime="<%= a.CloseTime ? a.CloseTime.toString().slice(0,5) : '23:59' %>"
+                  data-recstart="<%= a.RecStartTime ? a.RecStartTime.toString().slice(0,5) : '00:00' %>" 
+                  data-recend="<%= a.RecEndTime ? a.RecEndTime.toString().slice(0,5) : '23:59' %>"
+                  <%= a.AreaName===session.AreaName?'selected':'' %>>
+            <%= a.AreaName %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <!-- Date -->
+    <div class="mb-3">
+      <label class="form-label">Date</label>
+      <input name="Date" type="date" class="form-control" value="<%= session.Date ? new Date(session.Date).toISOString().slice(0,10) : '' %>" required>
+    </div>
+
+    <!-- Start Time -->
+    <div class="mb-3">
+      <label class="form-label">Start Time</label>
+      <input id="startTime" name="StartTime" type="time" class="form-control" value="<%= session.StartTime ? session.StartTime.toString().slice(0,5) : '' %>" required>
+    </div>
+
+    <!-- End Time -->
+    <div class="mb-3">
+      <label class="form-label">End Time</label>
+      <input id="endTime" name="EndTime" type="time" class="form-control" value="<%= session.EndTime ? session.EndTime.toString().slice(0,5) : '' %>" required>
+    </div>
+
+    <!-- Type -->
+    <div class="mb-3">
+      <label class="form-label">Type</label>
+      <select name="Type" class="form-select" required>
+        <option value="Practice" <%= session.Type==='Practice'?'selected':'' %>>Practice</option>
+        <option value="Competition" <%= session.Type==='Competition'?'selected':'' %>>Competition</option>
+        <option value="Recreational" <%= session.Type==='Recreational'?'selected':'' %>>Recreational</option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary">Save Changes</button>
+  </form>
+</div>
+
+<script>
+  const modeTeam = document.getElementById('modeTeam');
+  const modeRec = document.getElementById('modeRec');
+  const teamDiv = document.getElementById('teamDiv');
+  const recDiv = document.getElementById('recDiv');
+  const areaSelect = document.getElementById('areaSelect');
+  const startInput = document.getElementById('startTime');
+  const endInput = document.getElementById('endTime');
+
+  function toggleMode() {
+    if (modeTeam.checked) {
+      teamDiv.style.display = 'block';
+      recDiv.style.display = 'none';
+    } else if (modeRec.checked) {
+      teamDiv.style.display = 'none';
+      recDiv.style.display = 'block';
+    }
+    setAreaLimits();
+  }
+
+  function setAreaLimits() {
+    const selectedOption = areaSelect.selectedOptions[0];
+    if (!selectedOption) return;
+
+    let minTime, maxTime;
+    if (modeTeam.checked) {
+      minTime = selectedOption.dataset.opentime;
+      maxTime = selectedOption.dataset.closetime;
+    } else if (modeRec.checked) {
+      minTime = selectedOption.dataset.recstart;
+      maxTime = selectedOption.dataset.recend;
+    }
+
+    startInput.min = minTime;
+    startInput.max = maxTime;
+    endInput.min = minTime;
+    endInput.max = maxTime;
+
+    // Only adjust if the current value is empty or out of bounds
+    if (!startInput.value) startInput.value = minTime;
+    if (!endInput.value) endInput.value = maxTime;
+
+    if (startInput.value < minTime) startInput.value = minTime;
+    if (startInput.value > maxTime) startInput.value = maxTime;
+    if (endInput.value < minTime) endInput.value = minTime;
+    if (endInput.value > maxTime) endInput.value = maxTime;
+  }
+
+  modeTeam.addEventListener('change', toggleMode);
+  modeRec.addEventListener('change', toggleMode);
+  areaSelect.addEventListener('change', setAreaLimits);
+
+  // Initialize on page load, but preserve existing values
+  window.addEventListener('DOMContentLoaded', toggleMode);
+</script>
+
+
+<%- include('../partials/footer') %>

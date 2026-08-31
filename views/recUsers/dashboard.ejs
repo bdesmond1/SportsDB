@@ -1,0 +1,43 @@
+<%- include('../partials/header', { title }) %>
+
+<div class="container mt-5">
+    <h1 class="mb-4"><%= title %></h1>
+
+    <div class="row g-4">
+        <!-- View Rec Users List -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between text-center">
+                    <div>
+                        <h5 class="card-title">View Rec Users List</h5>
+                        <p class="card-text">View and manage all recreational users.</p>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a href="/recusers" class="btn btn-primary w-100">View List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rec User Attendance -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between text-center">
+                    <div>
+                        <h5 class="card-title">Rec User Attendance</h5>
+                        <p class="card-text">View all sessions for recreational users.</p>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a href="/recusers/dashboard/attendance" class="btn btn-primary w-100">View Sessions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="/" class="btn btn-secondary">← Back to Home</a>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

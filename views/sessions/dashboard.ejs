@@ -1,0 +1,39 @@
+<%- include('../partials/header', { title }) %>
+
+<div class="container mt-5">
+
+  <!-- Back to Home -->
+  <div class="mb-4">
+    <a href="/" class="btn btn-secondary">&larr; Back to Home</a>
+  </div>
+
+  <h1 class="mb-4 text-center">Sessions Dashboard</h1>
+
+  <div class="row g-4 justify-content-center">
+
+    <!-- CRUD View/Edit (Big Center Box) -->
+    <div class="col-md-6">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h4 class="card-title">Manage Sessions</h4>
+          <p class="card-text">Add, edit, or delete scheduled sessions</p>
+          <a href="/sessions" class="btn btn-primary mt-auto">Go to Sessions</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sessions by Area -->
+    <div class="col-md-6">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h4 class="card-title">Sessions by Area</h4>
+          <p class="card-text">View all sessions grouped by facility area</p>
+          <a href="/sessions/dashboard/byArea" class="btn btn-primary mt-auto">View by Area</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

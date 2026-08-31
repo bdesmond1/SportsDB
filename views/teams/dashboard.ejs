@@ -1,0 +1,71 @@
+<%- include('../partials/header', { title }) %>
+
+<div class="container mt-5">
+    <h1 class="mb-4"><%= title %></h1>
+
+    <div class="row g-4">
+        <!-- View All Teams -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between text-center">
+                    <div>
+                        <h5 class="card-title">View Teams</h5>
+                        <p class="card-text">View and manage all teams.</p>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a href="/teams" class="btn btn-primary w-100">View Teams</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teammates -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between text-center">
+                    <div>
+                        <h5 class="card-title">Teammates</h5>
+                        <p class="card-text">Select an athlete to view all teammates on the same team.</p>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a href="/teams/dashboard/teammates" class="btn btn-primary w-100">View Teammates</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Active Sports -->
+<div class="col-md-4">
+    <div class="card shadow-sm h-100">
+        <div class="card-body d-flex flex-column justify-content-between text-center">
+            <div>
+                <h5 class="card-title">Active Sports</h5>
+                <p class="card-text">View all currently active teams based on their season dates.</p>
+            </div>
+            <div class="d-grid gap-2 mt-2">
+                <a href="/teams/dashboard/active-sports" class="btn btn-primary w-100">View Active Sports</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Season Sports -->
+<div class="col-md-4">
+    <div class="card shadow-sm h-100">
+        <div class="card-body d-flex flex-column justify-content-between text-center">
+            <div>
+                <h5 class="card-title">Season Sports</h5>
+                <p class="card-text">View sports grouped by season</p>
+            </div>
+            <div class="d-grid gap-2 mt-2">
+                <a href="/teams/dashboard/seasonsports" class="btn btn-primary w-100">View Active Sports</a>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+    <div class="mt-4">
+        <a href="/" class="btn btn-secondary">← Back to Home</a>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

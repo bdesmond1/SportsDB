@@ -1,0 +1,73 @@
+<%- include('../partials/header', { title }) %>
+<div class="container mt-5">
+  <!-- Back to Home -->
+  <div class="mb-4">
+    <a href="/" class="btn btn-secondary">&larr; Back to Home</a>
+  </div>
+<div class="container mt-5">
+  <h1 class="mb-4 text-center">Student Athlete Dashboard</h1>
+
+  <div class="row g-4">
+     <div class="row g-4 mt-4 justify-content-center">
+
+  <!-- CRUD View/Edit (Top, bigger, centered) -->
+  <div class="col-md-6">
+    <div class="card shadow text-center h-100">
+      <div class="card-body d-flex flex-column justify-content-center">
+        <h4 class="card-title">List of Athletes</h4>
+        <p class="card-text">View or edit all student athlete records</p>
+        <a href="/studentAthlete" class="btn btn-primary mt-auto">View/Edit</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+    <!-- Multi-team Athletes -->
+    <div class="col-md-3">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title">Multi-team Athletes</h5>
+          <p class="card-text">View athletes who play on multiple teams</p>
+          <a href="/studentAthlete/dashboard/multiTeam" class="btn btn-primary mt-auto">View List</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expired Forms -->
+    <div class="col-md-3">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title">Expired Forms</h5>
+          <p class="card-text">View athletes with expired participation forms</p>
+          <a href="/studentAthlete/dashboard/expiredForms" class="btn btn-primary mt-auto">View List</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Missing Forms -->
+    <div class="col-md-3">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title">Missing Forms</h5>
+          <p class="card-text">View athletes missing any participation form</p>
+          <a href="/studentAthlete/dashboard/missingForms" class="btn btn-primary mt-auto">View List</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Injured Athletes -->
+    <div class="col-md-3">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title">Injured Athletes</h5>
+          <p class="card-text">View all athletes currently injured</p>
+          <a href="/studentAthlete/dashboard/injured" class="btn btn-primary mt-auto">View List</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,25 @@
+<%- include('../partials/header', { title: 'Edit Rec User' }) %>
+
+<div class="container mt-5">
+    <a href="/recusers" class="btn btn-secondary mb-3">← Back to List</a>
+    <h2>Edit User: <%= user.Name %></h2>
+
+    <form action="/recusers/edit/<%= user.UserID %>" method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="<%= user.Name %>" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="Active" <%= user.Status === 'Active' ? 'selected' : '' %>>Active</option>
+                <option value="Inactive" <%= user.Status === 'Inactive' ? 'selected' : '' %>>Inactive</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update User</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

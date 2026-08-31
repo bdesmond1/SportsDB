@@ -1,0 +1,46 @@
+<%- include('../partials/header') %>
+<title><%= title %></title>
+</head>
+<body>
+<div class="container mt-5">
+    <a href="/teams/dashboard" class="btn btn-secondary mb-3">← Back to Dashboard</a>
+    <h2><%= title %></h2>
+    <a href="/teams/add" class="btn btn-primary mb-3">Add New Team</a>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Team Name</th>
+                <th>Sport</th>
+                <th>Gender</th>
+                <th>Season</th>
+                <th>Coach</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% teams.forEach(team => { %>
+                <tr>
+                    <td><%= team.TeamName %></td>
+                    <td><%= team.Sport %></td>
+                    <td><%= team.Gender %></td>
+                    <td>
+                        <%= team.SeasonStart ? (new Date(team.SeasonStart).getMonth()+1) + '-' + new Date(team.SeasonStart).getDate() + '-' + new Date(team.SeasonStart).getFullYear() : '-' %> to
+                        <%= team.SeasonEnd ? (new Date(team.SeasonEnd).getMonth()+1) + '-' + new Date(team.SeasonEnd).getDate() + '-' + new Date(team.SeasonEnd).getFullYear() : '-' %>
+
+                    </td>
+                    <td><%= team.CoachName || 'Unassigned' %></td>
+                    <td>
+                        <a href="/teams/roster/<%= team.TeamName %>" class="btn btn-sm btn-info">Roster</a>
+                        <a href="/teams/edit/<%= team.TeamName %>" class="btn btn-sm btn-warning">Edit</a>
+                        <form action="/teams/delete/<%= team.TeamName %>" method="POST" style="display:inline;" 
+                              onsubmit="return confirm('Delete <%= team.TeamName %>? All assignments will be removed.');">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+<%- include('../partials/footer') %>

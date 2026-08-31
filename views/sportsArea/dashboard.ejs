@@ -1,0 +1,73 @@
+<%- include('../partials/header', { title }) %>
+
+<div class="container mt-5">
+  <!-- Back to Home -->
+  <div class="mb-4">
+    <a href="/" class="btn btn-secondary">&larr; Back to Home</a>
+  </div>
+
+  <h1 class="mb-4 text-center">Sports Areas Dashboard</h1>
+
+  <div class="row g-4">
+    <div class="row g-4 mt-4 justify-content-center">
+
+      <!-- CRUD View/Edit (Top, bigger, centered) -->
+      <div class="col-md-6">
+        <div class="card shadow text-center h-100">
+          <div class="card-body d-flex flex-column justify-content-center">
+            <h4 class="card-title">List of Sports Areas</h4>
+            <p class="card-text">View or edit all sports area records</p>
+            <a href="/sportsArea" class="btn btn-primary mt-auto">View/Edit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Participants per Session -->
+    <div class="col-md-3">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title">Participants per Session</h5>
+          <p class="card-text">View number of students per session</p>
+          <a href="/sportsArea/dashboard/participants" class="btn btn-primary mt-auto">View List</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Average Participants -->
+    <div class="col-md-3">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title">Average Participants</h5>
+          <p class="card-text">See average attendance per sports area</p>
+          <a href="/sportsArea/dashboard/avgParticipants" class="btn btn-primary mt-auto">View List</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Areas with >5 Sessions -->
+    <div class="col-md-3">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title">Areas with >5 Sessions</h5>
+          <p class="card-text">View areas that host more than 5 sessions</p>
+          <a href="/sportsArea/dashboard/moreThan5Sessions" class="btn btn-primary mt-auto">View List</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sessions with Max Attendance -->
+    <div class="col-md-3">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title">Sessions with Max Attendance</h5>
+          <p class="card-text">See the session(s) with the highest student attendance</p>
+          <a href="/sportsArea/dashboard/maxAttendance" class="btn btn-primary mt-auto">View List</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,66 @@
+<%- include('../partials/header', { title: 'Edit Participation Form' }) %>
+
+<div class="container mt-5">
+  <div class="mb-4 d-flex gap-2">
+    <a href="/" class="btn btn-secondary">Home</a>
+    <button onclick="history.back()" class="btn btn-outline-secondary">← Back</button>
+  </div>
+
+  <h2 class="mb-4 text-center">Edit Participation Form</h2>
+
+  <div class="card shadow-sm p-4">
+    <form action="/forms/edit/<%= form.FormID %>" method="POST" enctype="multipart/form-data">
+
+      <!-- STUDENT DROPDOWN -->
+      <div class="mb-3">
+        <label class="form-label fw-bold">Student</label>
+        <select name="StudentID" class="form-select" required>
+          <% students.forEach(s => { %>
+            <option value="<%= s.StudentID %>" <%= s.StudentID === form.StudentID ? 'selected' : '' %>><%= s.Name %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <!-- FORM TYPE -->
+      <div class="mb-3">
+        <label class="form-label fw-bold">Form Type</label>
+        <select name="FormType" class="form-select" required>
+          <% ['Medical','Consent','Insurance','Physical','Travel'].forEach(t => { %>
+            <option value="<%= t %>" <%= form.FormType === t ? 'selected' : '' %>><%= t %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <!-- VALID FROM -->
+      <div class="mb-3">
+        <label class="form-label fw-bold">Valid From</label>
+        <input name="ValidFrom" type="date" class="form-control" 
+               value="<%= form.ValidFrom ? form.ValidFrom.toISOString().slice(0,10) : '' %>" required>
+      </div>
+
+      <!-- VALID TO -->
+      <div class="mb-3">
+        <label class="form-label fw-bold">Valid To</label>
+        <input name="ValidTo" type="date" class="form-control" 
+               value="<%= form.ValidTo ? form.ValidTo.toISOString().slice(0,10) : '' %>" required>
+      </div>
+
+      <!-- FILE UPLOAD -->
+      <div class="mb-3">
+        <label class="form-label fw-bold">Upload File</label>
+        <input type="file" name="FormFile" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+        <% if (form.FilePath) { %>
+          <p class="mt-2">Current file: <a href="<%= form.FilePath %>" target="_blank">View</a></p>
+        <% } %>
+      </div>
+
+      <!-- SUBMIT BUTTON -->
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-primary px-5">Save Changes</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

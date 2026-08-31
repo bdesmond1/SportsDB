@@ -1,0 +1,43 @@
+<%- include('../partials/header', { title }) %>
+
+<div class="container mt-5">
+    <a href="/recusers/dashboard" class="btn btn-secondary mb-3">← Back to Dashboard</a>
+    <h2><%= title %></h2>
+
+    <!-- Add New User Button -->
+    <a href="/recusers/add" class="btn btn-primary mb-3">Add New User</a>
+
+    <!-- Rec Users Table -->
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% recusers.forEach(user => { %>
+                <tr>
+                    <td><%= user.UserID %></td>
+                    <td><%= user.Name %></td>
+                    <td>
+                        <span class="badge bg-<%= user.Status === 'Active' ? 'success' : 'secondary' %>">
+                            <%= user.Status %>
+                        </span>
+                    </td>
+                    <td>
+                       <a href="/recusers/edit/<%= user.UserID %>" class="btn btn-sm btn-warning">Edit</a>
+                        <form action="/recusers/delete/<%= user.UserID %>" method="POST" style="display:inline;" 
+                              onsubmit="return confirm('Are you sure you want to delete <%= user.Name %>?');">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../partials/footer') %>

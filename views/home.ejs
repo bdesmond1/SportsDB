@@ -1,0 +1,116 @@
+<%- include('partials/header', { title: 'Home' }) %>
+
+<div class="container mt-5">
+  <h1 class="mb-4 text-center">College Sports Facility Management</h1>
+
+  <div class="row g-4">
+
+    <!-- Student Athletes -->
+    <div class="col-md-4">
+      <div class="card shadow h-100">
+        <div class="card-body d-flex flex-column justify-content-between text-center">
+          <div>
+            <h5 class="card-title">Student Athletes</h5>
+            <p class="card-text">Manage student athlete records</p>
+          </div>
+          <div class="d-grid gap-2">
+            <a href="/studentAthlete/dashboard" class="btn btn-primary w-100">Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Recreational Users -->
+<div class="col-md-4">
+  <div class="card shadow h-100">
+    <div class="card-body d-flex flex-column justify-content-between text-center">
+      <div>
+        <h5 class="card-title">Recreational Users</h5>
+        <p class="card-text">View and manage recreational users</p>
+      </div>
+      <div class="d-grid gap-2">
+        <a href="/recusers/dashboard" class="btn btn-primary w-100">Dashboard</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Staff -->
+    <div class="col-md-4">
+      <div class="card shadow h-100">
+        <div class="card-body d-flex flex-column justify-content-between text-center">
+          <div>
+            <h5 class="card-title">Staff</h5>
+            <p class="card-text">Manage coaches & staff</p>
+          </div>
+          <div class="d-grid gap-2">
+            <a href="/staff/dashboard" class="btn btn-primary w-100">Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sports Areas -->
+    <div class="col-md-4">
+      <div class="card shadow h-100">
+        <div class="card-body d-flex flex-column justify-content-between text-center">
+          <div>
+            <h5 class="card-title">Sports Areas</h5>
+            <p class="card-text">Manage fields, courts, and facilities</p>
+          </div>
+          <div class="d-grid gap-2">
+            <a href="/sportsArea/dashboard" class="btn btn-primary w-100">Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Sessions -->
+    <div class="col-md-4">
+      <div class="card shadow h-100">
+        <div class="card-body d-flex flex-column justify-content-between text-center">
+          <div>
+            <h5 class="card-title">Sessions</h5>
+            <p class="card-text">Manage sessions</p>
+          </div>
+          <div class="d-grid gap-2">
+            <a href="/sessions/dashboard" class="btn btn-primary w-100">Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+           <!-- Forms -->
+    <div class="col-md-4">
+      <div class="card shadow h-100">
+        <div class="card-body d-flex flex-column justify-content-between text-center">
+          <div>
+            <h5 class="card-title">Forms</h5>
+            <p class="card-text">Manage forms</p>
+          </div>
+          <div class="d-grid gap-2">
+            <a href="/forms" class="btn btn-primary w-100">Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+               <!-- Teams -->
+    <div class="col-md-4">
+      <div class="card shadow h-100">
+        <div class="card-body d-flex flex-column justify-content-between text-center">
+          <div>
+            <h5 class="card-title">Teams</h5>
+            <p class="card-text">Manage sports teams</p>
+          </div>
+          <div class="d-grid gap-2">
+            <a href="/teams/dashboard" class="btn btn-primary w-100">Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<%- include('partials/footer') %>

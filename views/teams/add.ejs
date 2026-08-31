@@ -1,0 +1,52 @@
+<%- include('../partials/header') %>
+<title><%= title %></title>
+</head>
+<body>
+<div class="container mt-5">
+    <a href="/teams" class="btn btn-secondary mb-3">← Back to Team List</a>
+    <h2><%= title %></h2>
+
+    <form action="/teams/add" method="POST">
+        <div class="mb-3">
+            <label for="teamName" class="form-label">Team Name</label>
+            <input type="text" id="teamName" name="teamName" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="sport" class="form-label">Sport</label>
+            <input type="text" id="sport" name="sport" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="gender" class="form-label">Gender</label>
+            <select id="gender" name="gender" class="form-select" required>
+                <option value="">-- Select Gender --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="seasonStart" class="form-label">Season Start</label>
+            <input type="date" id="seasonStart" name="seasonStart" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="seasonEnd" class="form-label">Season End</label>
+            <input type="date" id="seasonEnd" name="seasonEnd" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="coachId" class="form-label">Assign Coach (Optional)</label>
+            <select id="coachId" name="coachId" class="form-select">
+                <option value="">-- Select Coach --</option>
+                <% coaches.forEach(coach => { %>
+                    <option value="<%= coach.StaffID %>"><%= coach.Name %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Team</button>
+    </form>
+</div>
+<%- include('../partials/footer') %>

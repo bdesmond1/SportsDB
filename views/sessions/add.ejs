@@ -1,0 +1,144 @@
+<%- include('../partials/header', { title }) %>
+
+<div class="container mt-5">
+  <a href="/sessions" class="btn btn-secondary mb-3">← Back</a>
+  <h2><%= title %></h2>
+
+  <form action="/sessions/add" method="POST" class="card p-4 shadow-sm">
+    <!-- Session Mode -->
+    <div class="mb-3">
+      <label class="form-label">Session Mode</label><br>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="SessionMode" id="modeTeam" value="team" required>
+        <label class="form-check-label" for="modeTeam">Team</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="SessionMode" id="modeRec" value="rec">
+        <label class="form-check-label" for="modeRec">Recreational</label>
+      </div>
+    </div>
+
+    <!-- Team Dropdown -->
+    <div class="mb-3" id="teamDiv" style="display:none;">
+      <label class="form-label">Team</label>
+      <select name="TeamName" class="form-select">
+        <option disabled selected>Select team...</option>
+        <% teams.forEach(t => { %>
+          <option value="<%= t.TeamName %>"><%= t.TeamName %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <!-- Rec User Dropdown -->
+    <div class="mb-3" id="recDiv" style="display:none;">
+      <label class="form-label">Rec User</label>
+      <select name="RecUsers" class="form-select">
+        <option disabled selected>Select user...</option>
+        <% recUsers.forEach(u => { %>
+          <option value="<%= u.UserID %>"><%= u.UserID %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <!-- Area -->
+    <div class="mb-3">
+      <label class="form-label">Area</label>
+      <select name="AreaName" id="areaSelect" class="form-select" required>
+        <option disabled selected>Select area...</option>
+        <% areas.forEach(a => { %>
+          <option value="<%= a.AreaName %>" 
+                  data-opentime="<%= a.OpenTime ? a.OpenTime.toString().slice(0,5) : '00:00' %>" 
+                  data-closetime="<%= a.CloseTime ? a.CloseTime.toString().slice(0,5) : '23:59' %>"
+                  data-recstart="<%= a.RecStartTime ? a.RecStartTime.toString().slice(0,5) : '00:00' %>" 
+                  data-recend="<%= a.RecEndTime ? a.RecEndTime.toString().slice(0,5) : '23:59' %>">
+            <%= a.AreaName %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <!-- Date -->
+    <div class="mb-3">
+      <label class="form-label">Date</label>
+      <input name="Date" type="date" class="form-control" value="<%= formData.Date || '' %>" required>
+    </div>
+
+    <!-- Start Time -->
+    <div class="mb-3">
+      <label class="form-label">Start Time</label>
+      <input id="startTime" name="StartTime" type="time" class="form-control" value="<%= formData.StartTime || '' %>" required>
+    </div>
+
+    <!-- End Time -->
+    <div class="mb-3">
+      <label class="form-label">End Time</label>
+      <input id="endTime" name="EndTime" type="time" class="form-control" value="<%= formData.EndTime || '' %>" required>
+    </div>
+
+    <!-- Type -->
+    <div class="mb-3">
+      <label class="form-label">Type</label>
+      <select name="Type" class="form-select" required>
+        <option value="Practice" <%= formData.Type==='Practice'?'selected':'' %>>Practice</option>
+        <option value="Competition" <%= formData.Type==='Competition'?'selected':'' %>>Competition</option>
+        <option value="Recreational" <%= formData.Type==='Recreational'?'selected':'' %>>Recreational</option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary">Add Session</button>
+  </form>
+</div>
+
+<script>
+  const modeTeam = document.getElementById('modeTeam');
+  const modeRec = document.getElementById('modeRec');
+  const teamDiv = document.getElementById('teamDiv');
+  const recDiv = document.getElementById('recDiv');
+  const areaSelect = document.getElementById('areaSelect');
+  const startInput = document.getElementById('startTime');
+  const endInput = document.getElementById('endTime');
+
+  function toggleMode() {
+    if (modeTeam.checked) {
+      teamDiv.style.display = 'block';
+      recDiv.style.display = 'none';
+      applyAreaHours();
+    } else if (modeRec.checked) {
+      teamDiv.style.display = 'none';
+      recDiv.style.display = 'block';
+      applyAreaHours();
+    }
+  }
+
+  function applyAreaHours() {
+    const selectedOption = areaSelect.selectedOptions[0];
+    if (!selectedOption) return;
+
+    let minTime, maxTime;
+
+    if (modeTeam.checked) {
+      minTime = selectedOption.dataset.opentime;
+      maxTime = selectedOption.dataset.closetime;
+    } else if (modeRec.checked) {
+      minTime = selectedOption.dataset.recstart;
+      maxTime = selectedOption.dataset.recend;
+    }
+
+    startInput.min = minTime;
+    startInput.max = maxTime;
+    endInput.min = minTime;
+    endInput.max = maxTime;
+
+    if (startInput.value < minTime) startInput.value = minTime;
+    if (startInput.value > maxTime) startInput.value = maxTime;
+    if (endInput.value < minTime) endInput.value = minTime;
+    if (endInput.value > maxTime) endInput.value = maxTime;
+  }
+
+  modeTeam.addEventListener('change', toggleMode);
+  modeRec.addEventListener('change', toggleMode);
+  areaSelect.addEventListener('change', applyAreaHours);
+  window.addEventListener('DOMContentLoaded', toggleMode);
+</script>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,72 @@
+<%- include("../partials/header") %>
+
+<div class="container mt-5">
+  <a href="/staff" class="btn btn-secondary mb-3">← Back</a>
+  <h2><%= title %></h2>
+
+  <form action="/staff/add" method="POST">
+    <div class="mb-3">
+      <label for="Name" class="form-label">Name</label>
+      <input type="text" name="Name" id="Name" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="Type" class="form-label">Type</label>
+      <select name="Type" id="Type" class="form-select" required>
+        <option value="Coach">Coach</option>
+        <option value="Trainer">Trainer</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="Email" class="form-label">Email</label>
+      <input type="email" name="Email" id="Email" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label for="PhoneNum" class="form-label">Phone</label>
+      <input type="text" name="PhoneNum" id="PhoneNum" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Teams</label>
+      <div id="team-container">
+        <div class="input-group mb-2 team-select">
+          <select name="Teams[]" class="form-select" required>
+            <option value="">-- Select Team --</option>
+            <% allTeams.forEach(t => { %>
+              <option value="<%= t.TeamName %>"><%= t.TeamName %></option>
+            <% }) %>
+          </select>
+          <button type="button" class="btn btn-outline-primary" onclick="addTeam()">+ Add Another Team</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-success">Add Staff</button>
+  </form>
+</div>
+
+<div id="team-template" style="display:none;">
+  <div class="input-group mb-2 team-select">
+    <select name="Teams[]" class="form-select" required>
+      <option value="">-- Select Team --</option>
+      <% allTeams.forEach(t => { %>
+        <option value="<%= t.TeamName %>"><%= t.TeamName %></option>
+      <% }) %>
+    </select>
+    <button type="button" class="btn btn-outline-danger" onclick="this.parentNode.remove()">Remove</button>
+  </div>
+</div>
+
+<script>
+function addTeam() {
+    const container = document.getElementById('team-container');
+    const template = document.getElementById('team-template');
+    const clone = template.firstElementChild.cloneNode(true);
+    clone.style.display = '';
+    container.appendChild(clone);
+}
+</script>
+
+<%- include("../partials/footer") %>

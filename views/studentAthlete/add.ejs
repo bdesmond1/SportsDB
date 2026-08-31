@@ -1,0 +1,69 @@
+<%- include("../partials/header") %>
+
+<div class="container mt-5">
+  <a href="/studentAthlete" class="btn btn-secondary mb-3">← Back</a>
+  <h2><%= title %></h2>
+
+  <form action="/studentAthlete/add" method="POST">
+    <div class="mb-3">
+      <label for="Name" class="form-label">Name</label>
+      <input type="text" name="Name" id="Name" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="DOB" class="form-label">DOB</label>
+      <input type="date" name="DOB" id="DOB" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="Status" class="form-label">Status</label>
+      <select name="Status" id="Status" class="form-select" required>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Teams</label>
+      <div id="team-container">
+        <div class="input-group mb-2 team-select">
+          <select name="Teams[]" class="form-select" required>
+            <option value="">-- Select Team --</option>
+            <%- teamOptions %>
+          </select>
+          <button type="button" class="btn btn-outline-primary" onclick="addTeam()">+ Add Another Team</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="MedicalHistory" class="form-label">Medical History</label>
+      <textarea name="MedicalHistory" id="MedicalHistory" class="form-control"></textarea>
+    </div>
+
+    <button class="btn btn-success">Add Student Athlete</button>
+  </form>
+</div>
+
+<!-- hidden template for cloning -->
+<div id="team-template" style="display:none;">
+  <div class="input-group mb-2 team-select">
+    <select name="Teams[]" class="form-select" required>
+      <option value="">-- Select Team --</option>
+      <%- teamOptions %>
+    </select>
+    <button type="button" class="btn btn-outline-danger" onclick="this.parentNode.remove()">Remove</button>
+  </div>
+</div>
+
+<script>
+  function addTeam() {
+    const container = document.getElementById('team-container');
+    const template = document.getElementById('team-template');
+    const clone = template.firstElementChild.cloneNode(true);
+    clone.style.display = '';
+    container.appendChild(clone);
+  }
+</script>
+
+<%- include("../partials/footer") %>

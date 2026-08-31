@@ -1,0 +1,86 @@
+<%- include('../partials/header', { title }) %>
+
+
+<div class="container mt-5">
+    <h1 class="mb-4"><%= title %></h1>
+
+    <!-- Alert Banner -->
+    <% if (alertMessage) { %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <%= alertMessage %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+
+    <p class="lead">
+        Sport: <strong><%= team.Sport %></strong> | Gender: <strong><%= team.Gender %></strong>
+    </p>
+    <!-- Current Roster -->
+    <% if (roster.length > 0) { %>
+        <div class="mb-4">
+            <h4>Current Roster (<%= roster.length %> Athletes)</h4>
+            <table class="table table-striped table-bordered table-hover shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>DOB</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% roster.forEach(athlete => { %>
+                        <tr>
+                            <tr>
+    <td><%= athlete.Name %></td>
+    <td>
+        <%= athlete.DOB 
+            ? (new Date(athlete.DOB).getMonth() + 1) + '-' 
+              + new Date(athlete.DOB).getDate() + '-' 
+              + new Date(athlete.DOB).getFullYear() 
+            : '-' %>
+    </td>
+    <td><%= athlete.Status %></td>
+    <td>
+        <form action="/teams/roster/remove/<%= team.TeamName %>" method="POST" style="display:inline;" 
+              onsubmit="return confirm('Remove <%= athlete.Name %> from this team?');">
+            <input type="hidden" name="studentId" value="<%= athlete.StudentID %>">
+            <button type="submit" class="btn btn-sm btn-danger">
+                <i class="fa-solid fa-user-minus"></i> Remove
+            </button>
+        </form>
+    </td>
+</tr>
+
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+        <div class="alert alert-warning">No athletes assigned to this team yet.</div>
+    <% } %>
+
+<!-- Add Athlete -->
+<div class="mb-5">
+    <h4>Add Athlete</h4>
+    <form action="/teams/roster/add/<%= team.TeamName %>" method="POST" class="row g-3 align-items-end">
+        <div class="col-md-6">
+            <label for="studentId" class="form-label">Select Athlete</label>
+            <select id="studentId" name="studentId" class="form-select" required>
+                <option value="">-- Choose an Athlete --</option>
+                <% athletes.forEach(athlete => { %>
+                    <option value="<%= athlete.StudentID %>"><%= athlete.Name %> (<%= athlete.Status %>)</option>
+                <% }) %>
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-success">
+                <i class="fa-solid fa-user-plus"></i> Add to Roster
+            </button>
+        </div>
+    </form>
+</div>
+
+<a href="/teams" class="btn btn-secondary">Back to Team List</a>
+
+<%- include('../partials/footer') %>

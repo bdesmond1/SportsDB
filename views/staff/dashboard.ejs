@@ -1,0 +1,72 @@
+<%- include('../partials/header', { title }) %>
+<div class="container mt-5">
+  <!-- Back to Home -->
+  <div class="mb-4">
+    <a href="/" class="btn btn-secondary">&larr; Back to Home</a>
+  </div>
+<div class="container mt-5">
+  <h1 class="mb-4 text-center">Staff Dashboard</h1>
+
+  <div class="row g-4">
+     <div class="row g-4 mt-4 justify-content-center">
+
+  <!-- CRUD View/Edit (Top, bigger, centered) -->
+  <div class="col-md-6">
+    <div class="card shadow text-center h-100">
+      <div class="card-body d-flex flex-column justify-content-center">
+        <h4 class="card-title">List of All Staff</h4>
+        <p class="card-text">View or edit all staff records</p>
+        <a href="/staff" class="btn btn-primary mt-auto">View/Edit</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+ <!-- Multi-Team Staff -->
+    <div class="col-md-3">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title">Staff on Multiple Teams</h5>
+          <p class="card-text">See coaches and trainers assigned to more than one team</p>
+          <a href="/staff/dashboard/multiTeam" class="btn btn-primary mt-auto">View</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Staff Supervising Today -->
+    <div class="col-md-3">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title">Staff Supervising Today</h5>
+          <p class="card-text">List of staff running sessions today</p>
+          <a href="/staff/dashboard/sessionsToday" class="btn btn-primary mt-auto">View</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Athletes per Staff -->
+    <div class="col-md-3">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title">Total Athletes per Staff</h5>
+          <p class="card-text">See how many athletes each staff member is responsible for</p>
+          <a href="/staff/dashboard/totalAthletes" class="btn btn-primary mt-auto">View</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Staff with more than 3 sessions -->
+    <div class="col-md-3">
+      <div class="card shadow text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title">Staff Supervising More than 3 Sessions</h5>
+          <p class="card-text">See a list of coaches with more than 3 sessions</p>
+          <a href="/staff/dashboard/3sessions" class="btn btn-primary mt-auto">View</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
